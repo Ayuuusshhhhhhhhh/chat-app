@@ -3,13 +3,13 @@ const http = require("http");
 const express = require("express");
 const app = express();
 const socketio = require("socket.io");
-const formatMessage = require("./messages");
+const formatMessage = require("./utils/messages");
 const {
   userJoin,
   getCurrentUser,
   userLeaves,
   getRoomUsers,
-} = require("./users");
+} = require("./utils/users");
 
 const server = http.createServer(app);
 const io = socketio(server);
@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, )));
+app.use(express.static(path.join(__dirname, "public")));
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Listening port ${port}..`));
